@@ -38,8 +38,8 @@
 
         </div>
 
-        <div class="row justify-content-md-center">
-            <div class="col-8">
+        <div class="row justify-content-md-center mt-4">
+            <div class="col-sm-6">
                 <p>Exercitation nisi qui voluptate aliqua ipsum irure aliquip proident laborum adipisicing laborum.</p>
                 <div class="form-check">
                     <label class="form-check-label">
