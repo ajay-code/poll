@@ -13,9 +13,33 @@
 
 <body>
     <div class="container">
-        <div class="row mt-5 pt-5">
-            <div class="col-sm-3 ">
-                <img src="/img/dummy.png" alt="" class="img-fluid">
+        <div class="row mt-4  justify-content-md-center">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-sm-6 mt-3">
+                        <img src="/img/dummy.png" alt="" class="img-fluid">
+
+                    </div>
+
+                    <div class="col-sm-6 mt-3">
+                        <img src="/img/dummy.png" alt="" class="img-fluid">
+
+                    </div>
+
+                    <div class="col-sm-6 mt-3">
+                        <img src="/img/dummy.png" alt="" class="img-fluid">
+                    </div>
+
+                    <div class="col-sm-6 mt-3">
+                        <img src="/img/dummy.png" alt="" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row justify-content-md-center">
+            <div class="col-8">
                 <p>Exercitation nisi qui voluptate aliqua ipsum irure aliquip proident laborum adipisicing laborum.</p>
                 <div class="form-check">
                     <label class="form-check-label">
@@ -38,85 +62,8 @@
                     </label>
                 </div>
             </div>
-
-            <div class="col-sm-3 ">
-                <img src="/img/dummy.png" alt="" class="img-fluid">
-                <p>Exercitation nisi qui voluptate aliqua ipsum irure aliquip proident laborum adipisicing laborum.</p>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios2" id="exampleRadios1" value="option1"> abcd
-                    </label>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios2" id="exampleRadios2" value="option2"> def
-                    </label>
-                </div>
-                <div class="form-check ">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios2" id="exampleRadios3" value="option3"> ghi
-                    </label>
-                </div>
-                <div class="form-check ">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios2" id="exampleRadios3" value="option3"> jkl
-                    </label>
-                </div>
-            </div>
-
-            <div class="col-sm-3 ">
-                <img src="/img/dummy.png" alt="" class="img-fluid">
-                <p>Exercitation nisi qui voluptate aliqua ipsum irure aliquip proident laborum adipisicing laborum.</p>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios3" id="exampleRadios1" value="option1"> abcd
-                    </label>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios3" id="exampleRadios2" value="option2"> def
-                    </label>
-                </div>
-                <div class="form-check ">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios3" id="exampleRadios3" value="option3"> ghi
-                    </label>
-                </div>
-                <div class="form-check ">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios3" id="exampleRadios3" value="option3"> jkl
-                    </label>
-                </div>
-            </div>
-
-            <div class="col-sm-3 ">
-                <img src="/img/dummy.png" alt="" class="img-fluid">
-                <p>Exercitation nisi qui voluptate aliqua ipsum irure aliquip proident laborum adipisicing laborum.</p>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios4" id="exampleRadios1" value="option1"> abcd
-                    </label>
-                </div>
-                <div class="form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios4" id="exampleRadios2" value="option2"> def
-                    </label>
-                </div>
-                <div class="form-check ">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios4" id="exampleRadios3" value="option3"> ghi
-                    </label>
-                </div>
-                <div class="form-check ">
-                    <label class="form-check-label">
-                        <input class="form-check-input" type="radio" name="exampleRadios4" id="exampleRadios3" value="option3"> jkl
-                    </label>
-                </div>
-            </div>
-
-
         </div>
-        <div class="text-center mt-5">
+        <div class="text-center mt-4">
             <button class="btn btn-success btn-outline-light pr-4 pl-4 submit-button">Submit</button>
         </div>
     </div>
