@@ -16,6 +16,8 @@ if(isset($_POST['voteSubmit'])){
         //store in $_COOKIE to signify the user has voted
         setcookie($_POST['pollID'], 1, time()+60*60*24*365);
         $statusMsg = 'Your vote has been submitted successfully.';
+        header('LOCATION: results.php?pollID=1');
+        
     }else{
         header('LOCATION: results.php?pollID=1');
     }
