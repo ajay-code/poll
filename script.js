@@ -1,3 +1,6 @@
-$('.submit-button').on('click', function(){
-    alert('data submitted')
-});
+var result = document.getElementById('result');
+
+new Chart(result, {
+    type: 'pie',
+    data: data,
+})
