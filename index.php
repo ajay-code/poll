@@ -22,7 +22,7 @@
     <div class="container">
     <h3 class="text-center"><?php echo $pollData['poll']['subject']; ?></h3>
         <div class="row   justify-content-center">
-            <div class="col-10">
+            <div class="col-8">
                 <div class="row justify-content-center">
                 <?php foreach ($pollData['options'] as $opt) :?>
                     <div class=" col-10 col-sm-3 text-center mt-3">
@@ -38,35 +38,44 @@
         <div class="row justify-content-center mt-5">
             <div class="col-sm-8">
                 <p>Exercitation nisi qui voluptate aliqua ipsum irure aliquip proident laborum adipisicing laborum.</p>
-                <form method="post">
-                <input type="hidden" name="pollID" value="<?= $pollData['poll']['id'] ?>">
-                    <div class="row">
-                        <?php foreach ($pollData['options'] as $opt) :?>
-                            <div class="col-6 col-sm-4 col-md-3">
-                                <div class="form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" type="radio" name="voteOpt"  value="<?= $opt['id'] ?>"> <?= $opt['name'] ?>
-                                    </label>
+                <?php if(!isset($_COOKIE['1'])): ?>
+                    <form method="post">
+                    <input type="hidden" name="pollID" value="<?= $pollData['poll']['id'] ?>">
+                        <div class="row">
+                            <?php foreach ($pollData['options'] as $opt) :?>
+                                <div class="col-6 col-sm-4 col-md-3 text-center">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="radio" name="voteOpt"  value="<?= $opt['id'] ?>"> <?= $opt['name'] ?>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-success btn-outline-light pr-4 pl-4 submit-button" name="voteSubmit">Submit</button>
+                        </div>
+                    </form>
+                <?php else: ?>
                     <div class="text-center mt-4">
-                        <button class="btn btn-success btn-outline-light pr-4 pl-4 submit-button" name="voteSubmit">Submit</button>
-                    </div>
-                </form>
+                        <a href="/results.php?pollID=1">
+                            <button class="btn btn-success btn-outline-light pr-4 pl-4 submit-button" name="voteSubmit">Results</button>
+                        </a>
+                        </div>
+                <?php endif; ?>
+                
 
             </div>
         </div>
         
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    <!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
-        crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script> -->
     <script src="/script.js"></script>
 </body>
 

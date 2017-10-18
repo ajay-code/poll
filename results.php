@@ -17,18 +17,21 @@ if (!$pollResult['total_votes']) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+    crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-    <h3>
+<div class="text-center mt-4">
+    <h3 >
         <?php echo $pollResult['poll']; ?>
     </h3>
     <p>
         <b>Total Votes:</b>
         <?php echo $pollResult['total_votes']; ?>
     </p>
+</div>
     <?php
         $data = ['labels' => [], 'votes' => [], 'colors' => []];
         $barColorArr = array('blue','yellow','violet','green','red', 'pink', 'gray', 'brown');
@@ -49,7 +52,9 @@ if (!$pollResult['total_votes']) {
     ?>
     <canvas id="result" ></canvas>
 
-        <a href="index.php">Back To Poll</a>
+        <a href="index.php" class="ml-2">
+            <button class="btn btn-outline-light go-back-button"> Back To Poll</button>
+        </a>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
         <script>
             var data = {

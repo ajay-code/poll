@@ -1,9 +1,7 @@
 <?php
 //Include and initialize Poll class 
 $poll = new Poll();
-if(isset($_COOKIE['1'])){
-    header('LOCATION: results.php?pollID=1');
-}
+
 //Check whether vote is submitted
 if(isset($_POST['voteSubmit'])){
     $voteData = array(
