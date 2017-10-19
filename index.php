@@ -25,7 +25,7 @@
                 <div class="row justify-content-center">
                 <?php foreach ($pollData['options'] as $opt) :?>
                     <div class=" col-10 col-sm-3 text-center mt-3">
-                        <?php if($opt['img']): ?>
+                        <?php if(file_exists($opt['img'])): ?>
                         <img src="<?= $opt['img'] ?>" alt="" class="img-fluid">
                         <?php else :?>
                         <img src="/img/dummy.png" alt="" class="img-fluid">
