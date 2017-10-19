@@ -60,14 +60,14 @@
                         <?php endforeach; ?>
                         </div>
                     </div> 
-                        
                     </div>
                     <div class="text-center mt-4">
                         <button class="btn btn-success btn-outline-light pr-4 pl-4 submit-button" name="voteSubmit">Submit</button>
                     </div>
                 </form>
             <?php else : ?>
-                <div class="text-center mt-4">
+                    
+                <div class="col-12 text-center mt-4">
                     <a href="/results.php?pollID=1">
                         <button class="btn btn-success btn-outline-light pr-4 pl-4 submit-button" name="voteSubmit">Results</button>
                     </a>
