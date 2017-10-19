@@ -47,17 +47,8 @@ $optionData = $admin->getOption($_GET['optionID']);
 
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-                    <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link <?= isactive('home.php') ? 'active' : '' ?>" href="home.php">Overview
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= isactive('edit-question.php') ? 'active' : '' ?>" href="edit-question.php">Edit Question</a>
-                        </li>
-                    </ul>
-                </nav>
+                <?php include 'nav.php'?>
+            
 
                 <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
                     <h1>Edit Question</h1>

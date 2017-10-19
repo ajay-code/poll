@@ -47,17 +47,7 @@ $pollData = $admin->getPolls();
 
         <div class="container-fluid">
             <div class="row">
-                <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
-                    <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link <?= isactive('home.php') ? 'active' : '' ?>" href="home.php">Overview
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link <?= isactive('edit-question.php') ? 'active' : '' ?>" href="edit-question.php">Edit Question</a>
-                        </li>
-                    </ul>
-                </nav>
+                <?php include 'nav.php'?>
 
                 <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
                     <h1>Dashboard</h1>
@@ -96,7 +86,10 @@ $pollData = $admin->getPolls();
                                     <td><?= $opt['img'] ?></td>
                                     <td><?= $opt['created'] ?></td>
                                     <td><?= $opt['modified'] ?></td>
-                                    <td><a href="edit-option.php?optionID=<?= $opt['id'] ?>"><i class="fa fa-edit"></i></a></td>
+                                    <td>
+                                    <a href="edit-option.php?optionID=<?= $opt['id'] ?>"><i class="fa fa-edit"></i></a>
+                                    <a href="delete-option.php?optionID=<?= $opt['id'] ?>"><i class="fa fa-trash text-danger"></i></a>
+                                    </td>
                                     <?php $i++ ?>
                                 </tr>
                                 <?php endforeach; ?>

@@ -4,13 +4,11 @@ include 'includes.php';
 
 $admin = new Admin();
 $admin->redirectIfNotLoggedIn();
-if(isset($_POST['submit-question'])){
-    if($admin->updateQuestion()){
-    }else{
+if (isset($_POST['submit-option'])) {
+    if($admin->createOption()){
+        $created = true;
     }
 }
-$pollData = $admin->getPolls();
-
 ?>
 
     <!DOCTYPE html>
@@ -54,20 +52,26 @@ $pollData = $admin->getPolls();
             
 
                 <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
-                    <h1>Edit Question</h1>
+                    <h1>Add Option</h1>
+                    <?php if(isset($created)): ?>
+                        <div class="alert alert-success" role="alert">
+                            Option Created Successfully;
+                        </div>
+                    <?php endif;?>
                     <section class="row ml-4">
-                            <form method="post" class="col-12">
+
+                            <form method="post"  class="col-12" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="form-group">
-                                            <label for="title">Title</label>
-                                            <input type="text" name="title" class="form-control" id="title" value="<?= $pollData['poll']['title']  ?>">
+                                            <label for="title">Name</label>
+                                            <input type="text" name="name" class="form-control" id="title" >
                                         </div>
                                         <div class="form-group">
-                                            <label for="title">Question</label>
-                                            <input type="text" name="subject" class="form-control" id="title" value="<?= $pollData['poll']['subject']  ?>">
+                                            <label for="image">Change Image </label>
+                                            <input type="file" name="img" accept="image/*"  id="image" >
                                         </div>
-                                        <button role="submit" name="submit-question" class="btn btn-primary">Edit</button>
+                                        <button role="submit" name="submit-option" class="btn btn-primary">Create</button>
                                     </div>
                                 </div>
                             </form>

@@ -8,14 +8,14 @@
  */
 class Admin
 {
-    // private $dbHost  = 'us-cdbr-iron-east-05.cleardb.net';
-    // private $dbUser  = 'b5fba7b8025cf0';
-    // private $dbPwd   = 'd2728a90';
-    // private $dbName  = 'heroku_e83e4a6f9df25f6';
-    private $dbHost  = 'localhost';
-    private $dbUser  = 'root';
-    private $dbPwd   = '';
-    private $dbName  = 'poll';
+    private $dbHost  = 'us-cdbr-iron-east-05.cleardb.net';
+    private $dbUser  = 'b5fba7b8025cf0';
+    private $dbPwd   = 'd2728a90';
+    private $dbName  = 'heroku_e83e4a6f9df25f6';
+    // private $dbHost  = 'localhost';
+    // private $dbUser  = 'root';
+    // private $dbPwd   = '';
+    // private $dbName  = 'poll';
     private $db      = false;
     private $pollTbl = 'polls';
     private $optTbl  = 'poll_options';
@@ -121,6 +121,12 @@ class Admin
                     $data = $result->fetch_assoc();
                     break;
                 case 'update':
+                    $data = $result;
+                    break;
+                case 'delete':
+                    $data = $result;
+                    break;
+                case 'insert':
                     $data = $result;
                     break;
                 default:
@@ -234,31 +240,95 @@ class Admin
     {
         $option = $this->getOption($_GET['optionID']);
         $name = $_POST['name'];
+        if ($_FILES["img"]["name"]) {
+            $target_dir = "uploads/";
+            $uploadOk = 1;
+            $imageFileType = pathinfo(basename($_FILES["img"]["name"]), PATHINFO_EXTENSION);
+            $new_filename = $target_dir . $this->random_string(10) . '.' . $imageFileType;
+            $target_file = '../' . $new_filename;
+            if (isset($_POST["submit-option"])) {
+                $check = getimagesize($_FILES["img"]["tmp_name"]);
+                if ($check !== false) {
+                    $uploadOk = 1;
+                } else {
+                    echo "File is not an image.";
+                    $uploadOk = 0;
+                }
+            }
 
-        $target_dir = "uploads/";
-        $uploadOk = 1;
-        $imageFileType = pathinfo(basename($_FILES["img"]["name"]), PATHINFO_EXTENSION);
-        $new_filename = $target_dir . $this->random_string(10) . '.' . $imageFileType;
-        $target_file = '../' . $new_filename;
-        // var_dump($imageFileType, $new_filename);
-        // die();
-        // Check if image file is a actual image or fake image
-        if (isset($_POST["submit-option"])) {
-            $check = getimagesize($_FILES["img"]["tmp_name"]);
-            if ($check !== false) {
-                $uploadOk = 1;
-            } else {
-                echo "File is not an image.";
-                $uploadOk = 0;
+            if ($uploadOk == 1) {
+                if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
+                    $query = "UPDATE `{$this->optTbl}` SET `name` = '{$name}', `img` = '{$new_filename}', `modified` = NOW()  where `id` = {$option['id']} and `poll_id` = {$option['poll_id']} ";
+                    if ($this->getQuery($query, 'update')) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            $query = "UPDATE `{$this->optTbl}` SET `name` = '{$name}', `modified` = NOW()  where `id` = {$option['id']} and `poll_id` = {$option['poll_id']} ";
+            if ($this->getQuery($query, 'update')) {
+                return true;
             }
         }
+    
+        return false;
+    }
 
-        if ($uploadOk == 1) {
-            if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
-                $query = "UPDATE `{$this->optTbl}` SET `name` = '{$name}', `img` = '{$new_filename}'  where `id` = {$option['id']} and `poll_id` = {$option['poll_id']} ";
-                if ($this->getQuery($query, 'update')) {
-                    return true;
+    /**
+     * Delete option
+     *
+     * @param int $optionID
+     * @return boolean
+     */
+    public function deleteOption($optionID)
+    {
+        $query = "DELETE FROM {$this->optTbl} where id={$optionID}";
+        if ($this->getQuery($query, 'delete')) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Update poll option
+     *
+     * @return boolean
+     */
+    public function createOption()
+    {
+        $name = $_POST['name'];
+
+        if($_FILES["img"]["name"]){
+            $target_dir = "uploads/";
+            $uploadOk = 1;
+            $imageFileType = pathinfo(basename($_FILES["img"]["name"]), PATHINFO_EXTENSION);
+            $new_filename = $target_dir . $this->random_string(10) . '.' . $imageFileType;
+            $target_file = '../' . $new_filename;
+    
+            if (isset($_POST["submit-option"])) {
+                $check = getimagesize($_FILES["img"]["tmp_name"]);
+                if ($check !== false) {
+                    $uploadOk = 1;
+                } else {
+                    echo "File is not an image.";
+                    $uploadOk = 0;
                 }
+            }
+    
+            if ($uploadOk == 1) {
+                if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
+                    $query = "INSERT INTO `{$this->optTbl}`  (poll_id, name, img ,created, modified )
+                    VALUES (1, '{$name}','{$new_filename}', NOW(), NOW())";
+                    if ($this->getQuery($query, 'insert')) {
+                        return true;
+                    }
+                }
+            }
+        }else{
+            $query = "INSERT INTO `{$this->optTbl}` (poll_id, name, created, modified ) 
+                        VALUES (1, '{$name}', NOW(),  NOW())";
+            if ($this->getQuery($query, 'insert')) {
+                return true;
             }
         }
         return false;
