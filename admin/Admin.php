@@ -6,7 +6,7 @@
  * @url       http://www.codexworld.com
  * @license   http://www.codexworld.com/license
  */
-class Poll
+class Admin
 {
     private $dbHost  = 'us-cdbr-iron-east-05.cleardb.net';
     private $dbUser  = 'b5fba7b8025cf0';
@@ -40,12 +40,73 @@ class Poll
             }
         }
     }
+
+    /**
+     * Login the admin
+     *
+     * @param string $username
+     * @param string $password
+     * @return boolean
+     */
+    public function login($username = '', $password = '')
+    {
+        $password = md5($password);
+        $sql = "SELECT * FROM `admin` WHERE `username` = '{$username}' AND `password` = '{$password}'";
+        if ($this->getQuery($sql, 'count')) {
+            if ($_POST['remember']) {
+                setcookie('log', 1, time()+60*60*24);
+            } else {
+                $_SESSION['log'] = '1';
+            }
+            
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Login the admin
+     *
+     * @return void
+     */
+    public function logout()
+    {
+        setcookie("log", "", time()-3600);
+        unset($_SESSION['log']);
+        header('LOCATION: index.php');
+    }
+
+    /**
+     * Redirect to home page if logged in
+     *
+     * @return void
+     */
+    public function redirectIfLoggedIn()
+    {
+        if (isset($_SESSION['log']) || isset($_COOKIE['log'])) {
+            header('LOCATION: home.php');
+        }
+    }
+
+    /**
+     * Redirect to login page if not logged in
+     *
+     * @return void
+     */
+    public function redirectIfNotLoggedIn()
+    {
+        if (!(isset($_SESSION['log']) || isset($_COOKIE['log']))) {
+            header('LOCATION: index.php');
+        }
+    }
     
     /**
      * Runs query to the database
      *
      * @param string SQL
      * @param string count, single, all
+     * @return int or
+     * @return array
      */
     private function getQuery($sql, $returnType = '')
     {
@@ -58,6 +119,9 @@ class Poll
                     break;
                 case 'single':
                     $data = $result->fetch_assoc();
+                    break;
+                case 'update':
+                    $data = $result;
                     break;
                 default:
                     if ($result->num_rows > 0) {
@@ -100,29 +164,21 @@ class Poll
         }
         return !empty($pollData)?$pollData:false;
     }
-    
+
     /**
-     * Submit vote
+     * Get option by id
      *
-     * @param array of poll option data
+     * @param int $optionID
+     * @return array $data;
      */
-    public function vote($data = array())
+    public function getOption($optionID)
     {
-        if (!isset($data['poll_id']) || !isset($data['poll_option_id']) || isset($_COOKIE[$data['poll_id']])) {
-            return false;
-        } else {
-            $sql = "SELECT * FROM ".$this->voteTbl." WHERE poll_id = ".$data['poll_id']." AND poll_option_id = ".$data['poll_option_id'];
-            $preVote = $this->getQuery($sql, 'count');
-            if ($preVote > 0) {
-                $query = "UPDATE ".$this->voteTbl." SET vote_count = vote_count+1 WHERE poll_id = ".$data['poll_id']." AND poll_option_id = ".$data['poll_option_id'];
-                $update = $this->db->query($query);
-            } else {
-                $query = "INSERT INTO ".$this->voteTbl." (poll_id,poll_option_id,vote_count) VALUES (".$data['poll_id'].",".$data['poll_option_id'].",1)";
-                $insert = $this->db->query($query);
-            }
-            return true;
-        }
+        $sql = "SELECT * FROM ".$this->optTbl." WHERE id = {$optionID} ORDER BY created DESC";
+        $data = $this->getQuery($sql, 'single');
+        return $data;
     }
+    
+    
     
     /**
      * Get poll result
@@ -148,5 +204,81 @@ class Poll
             }
         }
         return !empty($resultData)?$resultData:false;
+    }
+
+    /**
+     * Update poll question
+     *
+     * @return boolean
+     */
+
+    public function updateQuestion()
+    {
+        $title = $_POST['title'];
+        $subject = $_POST['subject'];
+
+        $query = "UPDATE `{$this->pollTbl}` SET `title` = '{$title}', `subject` = '{$subject}'  where `id` = 1 ";
+        if ($this->getQuery($query, 'update')) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Update poll option
+     *
+     * @return boolean
+     */
+    public function updateOption()
+    {
+        $option = $this->getOption($_GET['optionID']);
+        $name = $_POST['name'];
+
+        $target_dir = "uploads/";
+        $uploadOk = 1;
+        $imageFileType = pathinfo(basename($_FILES["img"]["name"]), PATHINFO_EXTENSION);
+        $new_filename = $target_dir . $this->random_string(10) . '.' . $imageFileType;
+        $target_file = '../' . $new_filename;
+        // var_dump($imageFileType, $new_filename);
+        // die();
+        // Check if image file is a actual image or fake image
+        if (isset($_POST["submit-option"])) {
+            $check = getimagesize($_FILES["img"]["tmp_name"]);
+            if ($check !== false) {
+                $uploadOk = 1;
+            } else {
+                echo "File is not an image.";
+                $uploadOk = 0;
+            }
+        }
+
+        if ($uploadOk == 1) {
+            if (move_uploaded_file($_FILES["img"]["tmp_name"], $target_file)) {
+                $query = "UPDATE `{$this->optTbl}` SET `name` = '{$name}', `img` = '{$new_filename}'  where `id` = {$option['id']} and `poll_id` = {$option['poll_id']} ";
+                if ($this->getQuery($query, 'update')) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Generate random string of given number
+     *
+     * @param int $lenght
+     * @return string $key
+     */
+    private function random_string($length)
+    {
+        $key = '';
+        $keys = array_merge(range(0, 9), range('a', 'z'));
+    
+        for ($i = 0; $i < $length; $i++) {
+            $key .= $keys[array_rand($keys)];
+        }
+    
+        return $key;
     }
 }
