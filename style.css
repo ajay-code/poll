@@ -1,8 +1,16 @@
 body {
-    background: #00beef;
-    color: #fff
+    background: #DDF2FC;
+    color: rgba(70, 74, 78, 0.64)
 }
 
 .submit-button:hover, .go-back-button:hover{
     color: #00beef !important;
+}
+
+img{
+    box-shadow: 10px 10px 5px #888888;
+}
+
+.button {
+    color: rgba(70, 74, 78, 0.64)
 }

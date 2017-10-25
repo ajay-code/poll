@@ -53,7 +53,7 @@ if (!$pollResult['total_votes']) {
     <canvas id="result" ></canvas>
 
         <a href="index.php" class="ml-2">
-            <button class="btn btn-outline-light go-back-button"> Back To Poll</button>
+            <button class="btn button go-back-button"> Back To Poll</button>
         </a>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
         <script>
