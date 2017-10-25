@@ -8,14 +8,14 @@
  */
 class Poll
 {
-    // private $dbHost  = 'us-cdbr-iron-east-05.cleardb.net';
-    // private $dbUser  = 'b5fba7b8025cf0';
-    // private $dbPwd   = 'd2728a90';
-    // private $dbName  = 'heroku_e83e4a6f9df25f6';
-    private $dbHost  = 'localhost';
-    private $dbUser  = 'root';
-    private $dbPwd   = '';
-    private $dbName  = 'poll';
+    private $dbHost  = 'us-cdbr-iron-east-05.cleardb.net';
+    private $dbUser  = 'b5fba7b8025cf0';
+    private $dbPwd   = 'd2728a90';
+    private $dbName  = 'heroku_e83e4a6f9df25f6';
+    // private $dbHost  = 'localhost';
+    // private $dbUser  = 'root';
+    // private $dbPwd   = '';
+    // private $dbName  = 'poll';
     private $db      = false;
     private $pollTbl = 'polls';
     private $optTbl  = 'poll_options';
