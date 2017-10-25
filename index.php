@@ -30,8 +30,7 @@
                         <?php else :?>
                         <img src="/img/dummy.png" alt="" class="img-fluid">
                         <?php endif?>
-                        <br>
-                        <span><?= $opt['name'] ?></span>
+                        <p class="img-text"><?= $opt['name'] ?></p>
                     </div>
                 <?php endforeach; ?>
                 </div>
