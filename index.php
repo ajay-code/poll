@@ -23,6 +23,7 @@
         <div class="row   justify-content-center">
             <div class="col-8">
                 <div class="row justify-content-center">
+                <?php //if($pollData): ?>
                 <?php foreach ($pollData['options'] as $opt) :?>
                     <div class=" col-10 col-sm-3 text-center mt-3">
                         <?php if(file_exists($opt['img'])): ?>
@@ -33,6 +34,8 @@
                         <p class="img-text"><?= $opt['name'] ?></p>
                     </div>
                 <?php endforeach; ?>
+                <?php //endif; ?>
+                
                 </div>
             </div>
 
